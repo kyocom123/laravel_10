@@ -13,11 +13,13 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('users.update', $user->id) }}" method="PUT">
+                    <form action="{{ route('users.update', $user->id) }}" method="POST">
+                        @csrf
+                        {{ method_field('PUT') }}
+                        <input type="hidden" name="id" id="id" value="{{ $user->id }}">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="row">
-                                    
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label">Username</label>

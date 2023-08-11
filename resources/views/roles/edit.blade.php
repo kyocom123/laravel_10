@@ -36,16 +36,10 @@
                                     <strong>Permission:</strong>
                                     <br/>
                                     @foreach($permission as $value)
-                                        {{-- <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                                        {{ $value->name }}</label> --}}
-
                                         <div class="form-check">
                                             {{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'form-check-input')) }}
-                                            {{-- <input class="form-check-input" type="checkbox" value="" id="permission" name="permission[]" checked=""> --}}
                                             <label class="custom-control-label" for="customCheck1">{{ $value->name }}</label>
                                         </div>
-
-
                                     @endforeach
                                 </div>
                             </div>

@@ -23,9 +23,8 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->getMethod());
+        dd($this);
         if ($this->isMethod('POST')) {
-            return false;
             return [
                 'username' => 'required|unique:users,username',
                 'email' => 'required|email|unique:users,email',
@@ -34,11 +33,10 @@ class StoreUserRequest extends FormRequest
             ];     
         }
 
-        if ($this->isMethod('PATCH')) {
-            return false;
+        if ($this->isMethod('PUT')) {
             return [
                 'username' => 'required|unique:users,username',
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|unique:users,email,'.$this->id,
                 'password' => 'required|same:confirm-password',
                 'roles' => 'required'
             ];     
