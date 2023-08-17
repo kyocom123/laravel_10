@@ -8,12 +8,15 @@
                 <div class="card-header pb-0">
                     <div class="d-flex align-items-center">
                         <h6>Edit Role</h6>
-                        <a href="{{ route('roles.index') }}" class="btn btn-dark btn-sm ms-auto">Quay lại</a>
+                        <a href="{{ route('roles.index') }}" class="btn btn-dark btn-sm ms-auto"><i class="fas fa-arrow-left me-1" aria-hidden="true"></i>  Quay lại</a>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('roles.update', $role->id) }}" method="PUT">
+                    <form action="{{ route('roles.update', $role->id) }}" method="POST">
+                        @csrf
+                        {{ method_field('PUT') }}
+                        <input type="hidden" name="id" id="id" value="{{ $role->id }}">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="row">
@@ -34,6 +37,12 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Permission:</strong>
+                                    <input type="hidden" class="form-control @error('permission') is-invalid @enderror" name="permission" id="permission">
+                                    @error('permission')
+                                        <span class="invalid-feedback inline" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                     <br/>
                                     @foreach($permission as $value)
                                         <div class="form-check">
@@ -47,8 +56,8 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <div class="form-check form-switch ps-0">
-                                        <label class="form-control-label mb-0" for="statusSwitchCheck">Trạng thái</label>
-                                        <input class="form-check-input ms-0 mt-0 ms-3" type="checkbox" id="statusSwitchCheck" checked="true">
+                                        <label class="form-control-label mb-0" for="status">Trạng thái</label>
+                                        <input class="form-check-input ms-0 mt-0 ms-3" type="checkbox" name='status' id="status" value="{{ $menu->status }}" @if($role->status) checked @endif>
                                     </div>
                                 </div>
                             </div>

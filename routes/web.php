@@ -18,17 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
 
@@ -41,7 +36,9 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword; 
 use App\Http\Controllers\UserController;      
 use App\Http\Controllers\RoleController;       
+use App\Http\Controllers\PermissionController; 
 use App\Http\Controllers\ProductController; 
+use App\Http\Controllers\MenuController; 
             
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
@@ -53,27 +50,31 @@ Route::get('/reset-password', [ResetPassword::class, 'show'])->middleware('guest
 Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('guest')->name('reset.perform');
 Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
-Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware('auth')->name('home.index');
 
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::resource('roles', RoleController::class);
+	
 	Route::resource('users', UserController::class);
 
-	// Route::group(['prefix' => 'users'], function() {
-	// 	Route::get('/', [UserController::class, 'index'])->name('users.index');
-	// 	Route::get('/create', [UserController::class, 'create'])->name('users.create');
-	// 	Route::post('/create', [UserController::class, 'store'])->name('users.store');
-	// 	Route::get('/{user}/show', [UserController::class, 'show'])->name('users.show');
-	// 	Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-		// Route::patch('/{user}/update', [UserController::class, 'update'])->name('users.update');
-	// 	Route::delete('/{user}/delete', [UserController::class, 'destroy'])->name('users.destroy');
-	// });
+	Route::group(['prefix' => 'permission'], function() {
+		Route::get('/', [PermissionController::class, 'index'])->name('permission.index');
+		Route::get('/sync', [PermissionController::class, 'sync'])->name('permission.sync');
+	});
 
+	Route::resource('menus', MenuController::class);
+
+
+
+
+
+
+	// ---------------------------------------------------------------------------------------
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+	Route::post('/profile', [UserProfileController::class, 'update'])->name('user-profile.update');
 	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static'); 
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static'); 

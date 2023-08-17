@@ -7,37 +7,31 @@
             <div class="card mb-8">
                 <div class="card-header pb-0">
                     <div class="d-flex align-items-center">
-                        <h6>Thông tin người dùng</h6>
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm ms-auto">Update</a>
-                        <a href="{{ route('users.index') }}" class="btn btn-dark btn-sm ms-3">Quay lại</a>
+                        <h5>Thông tin người dùng</h5>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-user-edit me-1" aria-hidden="true"></i> Update</a>
+                        <a href="{{ route('users.index') }}" class="btn btn-dark btn-sm ms-3"><i class="fas fa-arrow-left me-1" aria-hidden="true"></i> Quay lại</a>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Name:</strong>
-                                {{ $user->username }}
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Email:</strong>
-                                {{ $user->email }}
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Roles:</strong>
-                                @if(!empty($user->getRoleNames()))
-                                    @foreach($user->getRoleNames() as $v)
-                                        <label class="badge bg-success">{{ $v }}</label>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">Name:</strong> {{ $user->username }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">Email:</strong> {{ $user->email }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">Firstname:</strong> {{ $user->firstname }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">Lastname:</strong> {{ $user->lastname }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">Address:</strong> {{ $user->address }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">Country:</strong> {{ $user->country }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">City:</strong> {{ $user->city }}</li>
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark me-2">About:</strong> {{ $user->about }}</li>
+                        <li class="list-group-item border-0 ps-0 text-sm">
+                            <strong class="text-dark me-2">Roles:</strong>
+                            @if(!empty($user->getRoleNames()))
+                                @foreach($user->getRoleNames() as $v)
+                                    <label class="badge bg-success">{{ $v }}</label>
+                                @endforeach
+                            @endif
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

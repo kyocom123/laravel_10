@@ -17,7 +17,7 @@
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
                             <h6>Roles</h6>
-                            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm ms-auto">Thêm mới</a>
+                            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm ms-auto">Thêm mới</a>
                         </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
@@ -39,18 +39,26 @@
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">{{ $role->name }}</p>
                                             </td>
-                                            <td class="align-middle text-center">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-link text-secondary mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="actions_{{bcrypt($role->id)}}">
-                                                        <i class="fas fa-ellipsis-v text-xs" aria-hidden="true"></i>
-                                                    </a>
-    
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="actions_{{bcrypt($role->id)}}">
-                                                        <a class="dropdown-item" href="{{ route('roles.show', $role->id) }}"><i class="fas fa-eye me-1"></i> Show</a>
-                                                        <a class="dropdown-item" href="{{ route('roles.edit', $role->id) }}"><i class="fas fa-pencil-alt me-1"></i> Edit</a>
-                                                        {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!} {!! Form::button("<i class='fas fa-trash-alt me-1'></i> Delete", ['type' => 'submit', 'class' => 'dropdown-item']) !!} {!! Form::close() !!}
-                                                    </div>
-                                                </div>
+                                            <td class="text-sm align-middle text-center">
+                                                <a href="{{ route('roles.show', $role->id) }}" class="btn btn-link mb-1 px-0" data-bs-toggle="tooltip" data-bs-original-title="Preview">
+                                                    <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
+                                                </a>
+
+                                                <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-link mb-1 px-0 mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                    <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
+                                                </a>
+
+                                                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!} 
+                                                    {!! Form::button(
+                                                        "<i class='fas fa-trash text-secondary' aria-hidden='true'></i>", 
+                                                        [
+                                                            'type' => 'submit', 
+                                                            'class' => 'btn btn-link mb-1 mx-0 px-0', 
+                                                            'data-bs-toggle' => 'tooltip',
+                                                            'data-bs-original-title'=>'Delete' 
+                                                        ]
+                                                    )!!} 
+                                                {!! Form::close() !!}
                                             </td>
                                         </tr>
                                     @endforeach

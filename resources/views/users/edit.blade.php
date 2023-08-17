@@ -8,7 +8,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex align-items-center">
                         <h6>Cập nhật thông tin người đùng</h6>
-                        <a href="{{ route('users.index') }}" class="btn btn-dark btn-sm ms-auto">Quay lại</a>
+                        <a href="{{ route('users.index') }}" class="btn btn-dark btn-sm ms-auto"><i class="fas fa-arrow-left me-1" aria-hidden="true"></i>Quay lại</a>
                     </div>
                 </div>
 
@@ -23,7 +23,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label">Username</label>
-                                            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ $user->username }}" disabled>
+                                            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" value="{{ $user->username }}" readonly>
                                             @error('username')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -107,3 +107,14 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        if (document.getElementById('roles')) {
+            var select = document.getElementById('roles');
+            const example = new Choices(select, {
+                searchEnabled: false
+            });
+        }
+    </script>
+@endpush

@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
+                            <table class="table align-items-center mb-0 dataTable-table">
                                 <thead>
                                     <tr>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -51,18 +51,26 @@
                                                     @endforeach 
                                                 @endif
                                             </td>
-                                            <td class="align-middle text-center">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-link text-secondary mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="actions_{{bcrypt($user->id)}}">
-                                                        <i class="fas fa-ellipsis-v text-xs" aria-hidden="true"></i>
-                                                    </a>
-    
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="actions_{{bcrypt($user->id)}}">
-                                                        <a class="dropdown-item" href="{{ route('users.show', $user->id) }}"><i class="fas fa-eye me-1"></i> Show</a>
-                                                        <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}"><i class="fas fa-pencil-alt me-1"></i> Edit</a>
-                                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!} {!! Form::button("<i class='fas fa-trash-alt me-1'></i> Delete", ['type' => 'submit', 'class' => 'dropdown-item']) !!} {!! Form::close() !!}
-                                                    </div>
-                                                </div>
+                                            <td class="text-sm align-middle text-center">
+                                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-link mb-1 px-0" data-bs-toggle="tooltip" data-bs-original-title="Preview">
+                                                    <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
+                                                </a>
+
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-link mb-1 px-0 mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit">
+                                                    <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
+                                                </a>
+
+                                                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!} 
+                                                    {!! Form::button(
+                                                        "<i class='fas fa-trash text-secondary' aria-hidden='true'></i>", 
+                                                        [
+                                                            'type' => 'submit', 
+                                                            'class' => 'btn btn-link mb-1 mx-0 px-0', 
+                                                            'data-bs-toggle' => 'tooltip',
+                                                            'data-bs-original-title'=>'Delete' 
+                                                        ]
+                                                    )!!} 
+                                                {!! Form::close() !!}
                                             </td>
                                         </tr>
                                     @endforeach
